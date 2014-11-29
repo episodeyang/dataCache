@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from os import path
 import textwrap2
 import re
-import util as util
+#import util as util
 
 class dataCacheProxy():
     def __init__(self, expInst=None, newFile=False, stack_prefix='stack_', filepath=None):
