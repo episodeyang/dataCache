@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 
 from os import path
 import textwrap2
+import re
+import util as util
 
 class dataCacheProxy():
     def __init__(self, expInst=None, newFile=False, stack_prefix='stack_', filepath=None):
@@ -183,14 +185,17 @@ class dataCacheProxy():
             return self.index(self.current_stack + '.' + keyString)
 
     def new_stack(self):
-        index = self.get_next_stack_index()
+        done = False
         with SlabFile(self.path) as f:
-            try:
-                f.create_group(self.current_stack)
-                print "new stack: ", self.current_stack;
-            except ValueError, error:
-                print "{} already exists. Move to next index.".format(self.current_stack)
-                self.new_stack()
+            while (not done):
+                try:
+                    index = self.get_next_stack_index()
+                    f.create_group(self.current_stack)
+                    print "new stack: ", self.current_stack
+                    done = True
+                except ValueError, error:
+                    print "{} already exists. Move to next index.".format(self.current_stack)
+                    #self.new_stack()
 
     def note(self, string, keyString=None, printOption=False, maxLength=79):
         if keyString == None:
