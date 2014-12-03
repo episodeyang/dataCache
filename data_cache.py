@@ -199,8 +199,9 @@ class dataCacheProxy():
                     print "new stack: ", self.current_stack
                     done = True
                 except ValueError, error:
-                    print "{} already exists. Move to next index.".format(self.current_stack)
+                    # print "{} already exists. Move to next index.".format(self.current_stack)
                     #self.new_stack()
+                    pass
 
     def note(self, string, keyString=None, printOption=False, maxLength=79):
         if keyString == None:
