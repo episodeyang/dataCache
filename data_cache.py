@@ -69,6 +69,11 @@ class dataCacheProxy():
         with SlabFile(self.path, 'a') as f:
             add_data(f, f, keyList, data)
 
+    def remove(self, keyString):
+        with SlabFile(self.path, 'a') as f:
+            #print '/'.join([''] + keyString.split('.'));
+            del f['/'.join([''] + keyString.split('.'))]
+
     def append(self, keyString, data):
         def append_data(f, group, keyList, data):
             if len(keyList) == 1:
@@ -255,7 +260,8 @@ if __name__ == "__main__":
     cache.append('group1.subgroup.key3', (test_data_x, test_data_y) )
     #plt.plot(cache.get('group1.subgroup.key3')[0][1])
     #plt.show()
-
+    cache.remove('group1.subgroup.key3')
+    cache.remove('group1')
     ### now test the set_dict method
     d = {
             'key0': 'haha',
